@@ -284,6 +284,11 @@ VECTOR_STORE: milvus
 MILVUS_URI: {{ .Values.externalMilvus.uri | quote }}
 # The milvus database
 MILVUS_DATABASE: {{ .Values.externalMilvus.database | quote }}
+{{- else if .Values.externalElasticsearch.enabled}}
+# Elasticsearch configuration Only available when VECTOR_STORE is `elasticsearch`.
+VECTOR_STORE: elasticsearch
+ELASTICSEARCH_HOST: {{ .Values.externalElasticsearch.host | quote }}
+ELASTICSEARCH_PORT: {{ .Values.externalElasticsearch.port | quote }}
 {{- else if .Values.externalPgvector.enabled}}
 # pgvector configurations, only available when VECTOR_STORE is `pgvecto-rs or pgvector`
 VECTOR_STORE: pgvector

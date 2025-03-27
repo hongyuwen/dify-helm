@@ -115,6 +115,9 @@ MILVUS_TOKEN: {{ .Values.externalMilvus.token | b64enc | quote }}
 MILVUS_USER: {{ .Values.externalMilvus.user | b64enc | quote }}
 # the milvus password
 MILVUS_PASSWORD: {{ .Values.externalMilvus.password | b64enc | quote }}
+{{- else if .Values.externalElasticsearch.enabled}}
+ELASTICSEARCH_USERNAME: {{ .Values.externalElasticsearch.username | quote }}
+ELASTICSEARCH_PASSWORD: {{ .Values.externalElasticsearch.password | quote }}
 {{- else if .Values.externalPgvector.enabled}}
 PGVECTOR_USER: {{ .Values.externalPgvector.username | b64enc | quote }}
 # The pgvector password.
