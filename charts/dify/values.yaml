@@ -4,7 +4,7 @@
 
 image:
   api:
-    repository: langgenius/dify-api
+    repository: dockerpull.pw/langgenius/dify-api
     tag: "1.0.0"
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -15,7 +15,7 @@ image:
     #   - myRegistryKeySecretName
 
   web:
-    repository: langgenius/dify-web
+    repository: dockerpull.pw/langgenius/dify-web
     tag: "1.0.0"
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -26,7 +26,7 @@ image:
     #   - myRegistryKeySecretName
 
   sandbox:
-    repository: langgenius/dify-sandbox
+    repository: dockerpull.pw/langgenius/dify-sandbox
     tag: "0.2.10"
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
@@ -156,6 +156,11 @@ api:
     clusterIP: ""
   # The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
   logLevel: INFO
+  logFile: /app/api/storage/logs/server.log
+  logFileMaxSize: 20
+  logFileBackupCount: 10
+  logDateformat: "%Y-%m-%d %H:%M:%S"
+  logTz: UTC
   url:
     # The backend URL of the console API, used to concatenate the authorization callback.
     # If empty, it is the same domain. Example: https://api.console.dify.ai
@@ -217,7 +222,7 @@ api:
       ## ReadWriteMany access mode required for `api` and `worker`
       ##
       storageClass:
-      accessModes: ReadWriteMany
+      accessModes: ReadWriteOnce
       size: 5Gi
       subPath: ""
   ## Dify API ServiceAccount configuration
@@ -276,6 +281,11 @@ worker:
   #        name: my-secret
   #        key: DB_PASSWORD
   logLevel: INFO
+  logFile: /app/api/storage/logs/server.log
+  logFileMaxSize: 20
+  logFileBackupCount: 10
+  logDateformat: "%Y-%m-%d %H:%M:%S"
+  logTz: UTC
   ## Dify Worker ServiceAccount configuration
   ##
   serviceAccount:
@@ -337,7 +347,7 @@ proxy:
         ## ReadWriteMany access mode required for nginx
         ##
         storageClass:
-        accessModes: ReadWriteMany
+        accessModes: ReadWriteOnce
         size: 1Gi
         subPath: ""
   service:
@@ -559,7 +569,7 @@ ssrfProxy:
         ## ReadWriteMany access mode required for squid
         ##
         storageClass:
-        accessModes: ReadWriteMany
+        accessModes: ReadWriteOnce
         size: 1Gi
         subPath: ""
   service:
@@ -634,7 +644,7 @@ pluginDaemon:
       ## ReadWriteMany access mode required for `pluginDaemon`
       ##
       storageClass:
-      accessModes: ReadWriteMany
+      accessModes: ReadWriteOnce
       size: 5Gi
       subPath: ""
   marketplace:
@@ -2987,7 +2997,7 @@ externalPostgres:
 # - these configs are only used when `externalS3.enabled` is true
 ###################################
 externalS3:
-  enabled: true
+  enabled: false
   endpoint: "https://ioss.xfinfr.com"
   accessKey: "RhSR3hb1XOvEfSVa"
   secretKey: "7VWr3LtRtBCXCZkkt3dQSd2HzT76MW3N"
@@ -3032,6 +3042,17 @@ externalGCS:
   bucketName: "difyai"
   serviceAccountJsonBase64: ""
 
+###################################
+# External TENCENT COS
+# - these configs are only used when `externalS3.enabled` and `externalAzureBlobStorage.enabled` and `externalOSS.enabled` and `externalGCS.enabled` are false and `externalCOS.enabled` is true
+###################################
+externalCOS:
+  enabled: false
+  secretKey: "your-secret-key"
+  secretId: "your-secret-id"
+  region: "your-region"
+  bucketName: "your-bucket-name"
+  scheme: "your-scheme"
 
 ###################################
 # External HUAWEI OBS

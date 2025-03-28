@@ -3,6 +3,11 @@
 MODE: api
 # The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
 LOG_LEVEL: {{ .Values.api.logLevel }}
+LOG_FILE: {{ .Values.api.logFile }}
+LOG_FILE_MAX_SIZE: {{ .Values.api.logFileMaxSize }}
+LOG_FILE_BACKUP_COUNT: {{ .Values.api.logFileBackupCount }}
+LOG_DATEFORMAT: {{ .Values.api.logDateformat }}
+LOG_TZ: {{ .Values.api.logTz }}
 # A secret key that is used for securely signing the session cookie and encrypting sensitive information on the database. You can generate a strong key using `openssl rand -base64 42`.
 # SECRET_KEY: {{ .Values.api.secretKey }}
 # The base URL of console application web frontend, refers to the Console base URL of WEB service if console domain is
@@ -93,6 +98,11 @@ CONSOLE_WEB_URL: {{ .Values.api.url.consoleWeb | quote }}
 
 # The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
 LOG_LEVEL: {{ .Values.worker.logLevel | quote }}
+LOG_FILE: {{ .Values.worker.logFile | quote}}
+LOG_FILE_MAX_SIZE: {{ .Values.worker.logFileMaxSize | quote}}
+LOG_FILE_BACKUP_COUNT: {{ .Values.worker.logFileBackupCount | quote}}
+LOG_DATEFORMAT: {{ .Values.worker.logDateformat | quote}}
+LOG_TZ: {{ .Values.worker.logTz | quote}}
 # A secret key that is used for securely signing the session cookie and encrypting sensitive information on the database. You can generate a strong key using `openssl rand -base64 42`.
 # same as the API service
 # SECRET_KEY: {{ .Values.api.secretKey }}
