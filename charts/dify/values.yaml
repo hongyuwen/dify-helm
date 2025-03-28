@@ -156,7 +156,7 @@ api:
     clusterIP: ""
   # The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
   logLevel: INFO
-  logFile: /app/api/storage/logs/server.log
+  logFile: /app/api/storage/api-logs/server.log
   logFileMaxSize: 20
   logFileBackupCount: 10
   logDateformat: "%Y-%m-%d %H:%M:%S"
@@ -222,7 +222,7 @@ api:
       ## ReadWriteMany access mode required for `api` and `worker`
       ##
       storageClass:
-      accessModes: ReadWriteOnce
+      accessModes: ReadWriteMany
       size: 5Gi
       subPath: ""
   ## Dify API ServiceAccount configuration
@@ -281,7 +281,7 @@ worker:
   #        name: my-secret
   #        key: DB_PASSWORD
   logLevel: INFO
-  logFile: /app/api/storage/logs/server.log
+  logFile: /app/api/storage/worker-logs/server.log
   logFileMaxSize: 20
   logFileBackupCount: 10
   logDateformat: "%Y-%m-%d %H:%M:%S"
@@ -347,7 +347,7 @@ proxy:
         ## ReadWriteMany access mode required for nginx
         ##
         storageClass:
-        accessModes: ReadWriteOnce
+        accessModes: ReadWriteMany
         size: 1Gi
         subPath: ""
   service:
@@ -569,7 +569,7 @@ ssrfProxy:
         ## ReadWriteMany access mode required for squid
         ##
         storageClass:
-        accessModes: ReadWriteOnce
+        accessModes: ReadWriteMany
         size: 1Gi
         subPath: ""
   service:
@@ -644,7 +644,7 @@ pluginDaemon:
       ## ReadWriteMany access mode required for `pluginDaemon`
       ##
       storageClass:
-      accessModes: ReadWriteOnce
+      accessModes: ReadWriteMany
       size: 5Gi
       subPath: ""
   marketplace:
