@@ -158,6 +158,10 @@ API_KEY: {{ .Values.sandbox.auth.apiKey | b64enc | quote }}
 {{- define "dify.pluginDaemon.credentials" -}}
 {{ include "dify.db.credentials" . }}
 {{ include "dify.redis.credentials" . }}
+  {{- with .Values.externalRedis }}
+REDIS_USERNAME: {{ .username | b64enc | quote }}
+REDIS_PASSWORD: {{ .password | b64enc | quote }}
+  {{- end }}
 SERVER_KEY: {{ .Values.pluginDaemon.auth.serverKey | b64enc | quote }}
 DIFY_INNER_API_KEY: {{ .Values.pluginDaemon.auth.difyApiKey | b64enc | quote }}
 {{- end }}

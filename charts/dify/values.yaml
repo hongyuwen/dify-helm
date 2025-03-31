@@ -3083,7 +3083,7 @@ externalRedis:
 ###################################
 externalRedisSentinel:
   enabled: true
-  nodes: "172.31.114.226:6063,172.31.114.226:6064,172.31.114.226:6065"
+  nodes: "172.31.250.22:26379,172.31.250.22:26380,172.31.250.22:26381"
   master: "redis_6061"
   username: ""
   password: "cbgpub_T2099"
