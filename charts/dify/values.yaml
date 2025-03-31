@@ -156,7 +156,7 @@ api:
     clusterIP: ""
   # The log level for the application. Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
   logLevel: INFO
-  logFile: /app/api/storage/api-logs/server.log
+  logFile: /app/api/logs/server.log
   logFileMaxSize: 20
   logFileBackupCount: 10
   logDateformat: "%Y-%m-%d %H:%M:%S"
@@ -281,7 +281,7 @@ worker:
   #        name: my-secret
   #        key: DB_PASSWORD
   logLevel: INFO
-  logFile: /app/api/storage/worker-logs/server.log
+  logFile: /app/api/logs/server.log
   logFileMaxSize: 20
   logFileBackupCount: 10
   logDateformat: "%Y-%m-%d %H:%M:%S"
