@@ -5,7 +5,7 @@
 image:
   api:
     repository: dockerpull.pw/langgenius/dify-api
-    tag: "1.0.0"
+    tag: "1.1.3"
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
@@ -16,7 +16,7 @@ image:
 
   web:
     repository: dockerpull.pw/langgenius/dify-web
-    tag: "1.0.0"
+    tag: "1.1.3"
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
@@ -27,7 +27,7 @@ image:
 
   sandbox:
     repository: dockerpull.pw/langgenius/dify-sandbox
-    tag: "0.2.10"
+    tag: "0.2.11"
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
@@ -59,8 +59,8 @@ image:
     #   - myRegistryKeySecretName
 
   pluginDaemon:
-    repository: langgenius/dify-plugin-daemon
-    tag: 0.0.3-local
+    repository: dockerpull.pw/langgenius/dify-plugin-daemon
+    tag: 0.0.6-local
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
@@ -71,7 +71,7 @@ image:
 
 api:
   enabled: true
-  replicas: 1
+  replicas: 2
   resources: {}
   nodeSelector: {}
   affinity: {}
@@ -244,7 +244,7 @@ api:
 
 worker:
   enabled: true
-  replicas: 1
+  replicas: 2
   resources: {}
   nodeSelector: {}
   affinity: {}
@@ -374,7 +374,7 @@ proxy:
 
 web:
   enabled: true
-  replicas: 1
+  replicas: 2
   resources: {}
   nodeSelector: {}
   affinity: {}
@@ -449,7 +449,7 @@ web:
 
 sandbox:
   enabled: true
-  replicas: 1
+  replicas: 2
   resources: {}
   nodeSelector: {}
   affinity: {}
@@ -529,7 +529,7 @@ sandbox:
 
 ssrfProxy:
   enabled: false
-  replicas: 1
+  replicas: 2
   resources: {}
   nodeSelector: {}
   affinity: {}
@@ -596,7 +596,7 @@ ssrfProxy:
 
 pluginDaemon:
   enabled: true
-  replicas: 1
+  replicas: 2
   resources: {}
   nodeSelector: {}
   affinity: {}
@@ -3070,12 +3070,24 @@ externalOBS:
 # - these configs are only used when `externalRedis.enabled` is true
 ###################################
 externalRedis:
-  enabled: true
+  enabled: false
   host: "172.31.250.22"
   port: 8004
   username: ""
   password: "difyai123456"
   useSSL: false
+
+###################################
+# External Redis Sentinel
+# - these configs are only used when `externalRedis.enabled` is true
+###################################
+externalRedisSentinel:
+  enabled: true
+  nodes: "172.31.114.226:6063,172.31.114.226:6064,172.31.114.226:6065"
+  master: "redis_6061"
+  username: ""
+  password: "cbgpub_T2099"
+  sockerTimeOut: 0.1
 
 ###################################
 # External Weaviate

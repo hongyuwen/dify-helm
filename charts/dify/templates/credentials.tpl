@@ -80,6 +80,11 @@ ALIYUN_OSS_SECRET_KEY: {{ .Values.externalOSS.secretKey | b64enc | quote  }}
 REDIS_USERNAME: {{ .username | b64enc | quote }}
 REDIS_PASSWORD: {{ .password | b64enc | quote }}
   {{- end }}
+{{- else if .Values.externalRedisSentinel.enabled }}
+  {{- with .Values.externalRedisSentinel }}
+REDIS_SENTINEL_USERNAME: {{ .username | b64enc | quote }}
+REDIS_SENTINEL_PASSWORD: {{ .password | b64enc | quote }}
+  {{- end }}
 {{- else if .Values.redis.enabled }}
 {{- $redisHost := printf "%s-redis-master" .Release.Name -}}
   {{- with .Values.redis }}

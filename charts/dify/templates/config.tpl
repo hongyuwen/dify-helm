@@ -238,6 +238,15 @@ REDIS_USE_SSL: {{ .useSSL | toString | quote }}
 # use redis db 0 for redis cache
 REDIS_DB: "0"
   {{- end }}
+{{- else if .Values.externalRedisSentinel.enabled }}
+  {{- with .Values.externalRedisSentinel }}
+REDIS_SENTINELS: {{ .nodes | quote }}
+REDIS_SENTINEL_SERVICE_NAME: {{ .master | quote }}
+REDIS_SENTINEL_SOCKET_TIMEOUT: {{ .sockerTimeOut| quote }}
+CELERY_USE_SENTINEL: true
+CELERY_SENTINEL_MASTER_NAME: {{ .master | quote }}
+CELERY_SENTINEL_SOCKET_TIMEOUT= {{ .sockerTimeOut| quote }}
+  {{- end }}
 {{- else if .Values.redis.enabled }}
 {{- $redisHost := printf "%s-redis-master" .Release.Name -}}
   {{- with .Values.redis }}
