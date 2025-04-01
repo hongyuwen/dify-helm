@@ -3086,8 +3086,9 @@ externalRedisSentinel:
   nodes: "172.31.250.22:26379,172.31.250.22:26380,172.31.250.22:26381"
   master: "redis_6061"
   username: ""
-  password: "cbgpub_T2099"
+  password: ""
   sockerTimeOut: 0.1
+  celeryUseSentinel: "sentinel://:@172.31.250.22:26379/1;sentinel://:@172.31.250.22:26380/1;sentinel://:@172.31.250.22:26381/1"
 
 ###################################
 # External Weaviate

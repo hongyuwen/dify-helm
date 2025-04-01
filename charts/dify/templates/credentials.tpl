@@ -100,6 +100,10 @@ REDIS_PASSWORD: {{ .auth.password | b64enc | quote }}
   {{- with .Values.externalRedis }}
 CELERY_BROKER_URL: {{ printf "redis://%s:%s@%s:%v/1" .username .password .host .port | b64enc | quote }}
   {{- end }}
+{{- else if .Values.externalRedisSentinel.enabled }}
+  {{- with .Values.externalRedisSentinel }}
+CELERY_BROKER_URL: {{ .celeryUseSentinel | b64enc | quote }}
+  {{- end }}
 {{- else if .Values.redis.enabled }}
 {{- $redisHost := printf "%s-redis-master" .Release.Name -}}
   {{- with .Values.redis }}
