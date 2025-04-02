@@ -588,3 +588,69 @@ MARKETPLACE_API_URL: {{ .Values.api.url.marketplaceApi | quote }}
 MARKETPLACE_ENABLED: "false"
 {{- end }}
 {{- end }}
+
+{{- define "dify.ingress.config.rules" }}
+{{- if .Values.ingress.enabled -}}
+- host: {{ .Values.ingress.host | quote }}
+  http:
+    paths:
+      - path: /console/api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.api.fullname" . }}
+            port:
+              number: {{ .Values.api.service.port }}
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.api.fullname" . }}
+            port:
+              number: {{ .Values.api.service.port }}
+      - path: /v1
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.api.fullname" . }}
+            port:
+              number: {{ .Values.api.service.port }}
+      - path: /files
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.api.fullname" . }}
+            port:
+              number: {{ .Values.api.service.port }}
+      - path: /explore
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.web.fullname" . }}
+            port:
+              number: {{ .Values.web.service.port }}
+      - path: /e
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.pluginDaemon.fullname" . }}
+            port:
+              number: {{ .Values.pluginDaemon.service.ports.daemon }}
+      {{- if and .Values.pluginDaemon.enabled .Values.pluginDaemon.marketplace.enabled .Values.pluginDaemon.marketplace.apiProxyEnabled }}
+      - path: /marketplace
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.marketplace.fullname" . }}
+            port:
+              number: {{ .Values.marketplace.service.port }}
+      {{- end }}
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ template "dify.web.fullname" . }}
+            port:
+              number: {{ .Values.web.service.port }}
+{{- end }}
+{{- end }}
