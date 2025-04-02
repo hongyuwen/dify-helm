@@ -304,7 +304,7 @@ worker:
     annotations: {}
 
 proxy:
-  enabled: true
+  enabled: false
   replicas: 1
   resources: {}
   nodeSelector: {}
@@ -1137,24 +1137,17 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  className: ""
+  enabled: true
+  className: "nginx"
   annotations:
-    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # nginx.ingress.kubernetes.io/backend-protocol: HTTP
     # nginx.ingress.kubernetes.io/proxy-body-size: 15m
     # nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  hosts:
-    - host: dify-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-    # - host: dify-example2.local
-    #   paths:
-    #     - path: /
-    #       pathType: Prefix
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+  host: difytest.xfinfr.com
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
